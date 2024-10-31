@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Details</title>
+    <title>EZ Donation Text Generator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,9 +51,12 @@
         button:hover {
             background-color: #218838;
         }
-        #comments-section {
-            max-width: 600px;
-            margin-top: 20px;
+        #copyButton {
+            margin-top: 10px;
+            background-color: #007bff;
+        }
+        #copyButton:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -62,9 +65,9 @@
     <div class="container">
         <img src="ez_logo.png" alt="Logo" class="logo">
 
-        <h1>Character Details Form</h1>
+        <h1>EZ Donation Text Generator</h1>
 
-        <form>
+        <form id="donationForm">
             <div class="form-group">
                 <label for="characterName">Character Name</label>
                 <input type="text" id="characterName" name="characterName" placeholder="Enter character's name">
@@ -73,20 +76,37 @@
                 <label for="characterDetails">Character Details</label>
                 <textarea id="characterDetails" name="characterDetails" rows="4" placeholder="Enter character details"></textarea>
             </div>
-            <button type="submit">Submit</button>
+            <div class="form-group">
+                <label for="comment">Comment</label>
+                <textarea id="comment" name="comment" rows="4" placeholder="Write your comment here"></textarea>
+            </div>
+            <button type="button" onclick="generateText()">Generate Text</button>
+            <button type="button" id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>
         </form>
 
-        <div id="comments-section">
-            <h2>Comments</h2>
-            <form>
-                <div class="form-group">
-                    <label for="comment">Add a Comment</label>
-                    <textarea id="comment" name="comment" rows="4" placeholder="Write your comment here"></textarea>
-                </div>
-                <button type="submit">Post Comment</button>
-            </form>
-        </div>
+        <h2>Generated Text</h2>
+        <div id="output" style="white-space: pre-wrap;"></div>
     </div>
+
+    <script>
+        function generateText() {
+            const characterName = document.getElementById("characterName").value;
+            const characterDetails = document.getElementById("characterDetails").value;
+            const comment = document.getElementById("comment").value;
+
+            const output = `Character Name: ${characterName}\nDetails: ${characterDetails}\nComment: ${comment}`;
+            document.getElementById("output").textContent = output;
+        }
+
+        function copyToClipboard() {
+            const outputText = document.getElementById("output").textContent;
+            navigator.clipboard.writeText(outputText).then(() => {
+                alert("Text copied to clipboard!");
+            }).catch(err => {
+                alert("Failed to copy text: " + err);
+            });
+        }
+    </script>
 
 </body>
 </html>
