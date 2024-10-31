@@ -92,16 +92,10 @@
         function generateText() {
             const characterName = document.getElementById("characterName").value;
             const email = document.getElementById("email").value;
-            const comment = document.getElementById("comment").value;
+            const comment = document.getElementById("comment").value || "No comments"; // Provide default text if comments are empty
 
-            // Check if email is valid
-            if (!email.includes("@") || !email.includes(".")) {
-                alert("Please enter a valid email address.");
-                return;
-            }
-
-            // Generate output text
-            const output = `Character Name: ${characterName}\nEmail: ${email}\nComments: ${comment}`;
+            // Format the output text
+            const output = `EZ Server :: Character: ${characterName} E-Mail: ${email} Comments: ${comment}`;
             document.getElementById("output").textContent = output;
         }
 
